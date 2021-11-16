@@ -7,3 +7,9 @@ Material de Estudo, Evento realizado durante a Next Level Week de Edição 7º d
 
 A pagina acima segue obtendo os comentários sendo recebidos do backend, assim como os avatares e também o name do Usuário, que vem diretamente do perfil do Github.
 < Essa Apicação ainda está em desenvolvimento alpha >
+
+## Message Page ##
+
+![image](https://user-images.githubusercontent.com/61027045/141823487-d738b7b4-cd0d-44f8-a535-30a64e2a86ae.png)
+
+
