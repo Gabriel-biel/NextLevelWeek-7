@@ -1,7 +1,7 @@
 import { 
   useFonts,
   Roboto_400Regular,
-  Roboto_700Bold
+  Roboto_700Bold,
  } from "@expo-google-fonts/roboto"
 
  import { StatusBar } from 'expo-status-bar'
