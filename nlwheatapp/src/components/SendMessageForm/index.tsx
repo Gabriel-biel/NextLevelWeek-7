@@ -16,10 +16,6 @@ export function SendMessageForm(){
   const [sendingMessage, setSendingMessage] = useState(false);
 
   return (
-    
-    // <KeyboardAvoidingView
-      // behavior={Platform.OS === "ios" ? "padding" : "height"} enabled 
-      // contentContainerStyle={styles.container}>
     <View style={styles.container}>
     
       <TextInput 
@@ -40,8 +36,5 @@ export function SendMessageForm(){
         color={COLORS.WHITE}
       />
     </View>
-        // </KeyboardAvoidingView>
-    
-        
   );
 }

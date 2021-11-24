@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Button } from '../../components/Button'
+import { Button } from '../../components/Button';
+import { useAuth } from '../../hooks/auth';
 
 import {
   View
@@ -10,6 +11,9 @@ import { styles } from './styles';
 import { COLORS } from '../../theme';
 
 export function SigninBox(){
+  
+  const { signIn } = useAuth();
+
   return (
     <View style={styles.container}>
       <Button 
@@ -17,6 +21,7 @@ export function SigninBox(){
         color={COLORS.BLACK_PRIMARY}  
         backgroundColor={COLORS.YELLOW}
         icon="github"
+        onPress={signIn}
       />
     </View>
   );
