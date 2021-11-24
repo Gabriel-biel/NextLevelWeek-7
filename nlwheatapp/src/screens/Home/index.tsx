@@ -4,21 +4,18 @@ import { Header } from '../../components/Header';
 import { MessageList } from '../../components/MessageList'
 import { SendMessageForm } from '../../components/SendMessageForm';
 import { SigninBox } from '../../components/SigninBox';
+import { useAuth } from '../../hooks/auth';
 
 
 import { Styles } from './styles';
 
 export function Home() {
+  const { user } = useAuth();
   return (
-    // <KeyboardAvoidingView
-      // style={{ flex: 1 }}
-      // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    // >
     <View style={Styles.container}>
       <Header />
       <MessageList />
-      <SigninBox />
+      {user ? <SendMessageForm /> : <SigninBox />}
     </View>
-    // </KeyboardAvoidingView>
   )
 };

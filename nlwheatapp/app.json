@@ -3,7 +3,7 @@
     "name": "nlwheatapp",
     "slug": "nlwheatapp",
     "version": "1.0.0",
-    "schema": "nlwheatapp",
+    "scheme": "nlwheatapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
