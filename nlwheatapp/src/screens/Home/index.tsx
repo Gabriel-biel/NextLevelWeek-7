@@ -11,11 +11,17 @@ import { Styles } from './styles';
 
 export function Home() {
   const { user } = useAuth();
+  
   return (
-    <View style={Styles.container}>
-      <Header />
-      <MessageList />
-      {user ? <SendMessageForm /> : <SigninBox />}
-    </View>
+    <KeyboardAvoidingView 
+      style={{flex: 1}} behavior={Platform.OS=='ios' ? 'padding' : undefined}
+    >
+
+      <View style={Styles.container}>
+        <Header />
+        <MessageList />
+        {user ? <SendMessageForm /> : <SigninBox />}
+      </View>
+    </KeyboardAvoidingView>
   )
 };

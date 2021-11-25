@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
 
+  inner: {
+    flex: 1
+  },
+
   input: {
     width: '100%',
     height: 88,

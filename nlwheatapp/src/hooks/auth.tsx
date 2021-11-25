@@ -35,7 +35,9 @@ type AuthResponse ={
 type AuthorizationResponse ={
   params: {
     code?: string;
-  }
+    error?: string;
+  },
+  type?: string;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -45,26 +47,34 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   
   async function signIn(){
-    setIsSigningIn(true);
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=${SCOPE}`;
-  
-    const {params} = await AuthSessions.startAsync({ authUrl }) as AuthorizationResponse;
-    
-    if(params && params.code){
-      const authResponse = await api.post('/authenticate', {code: params.code})
-      const {user, token} = authResponse.data as AuthResponse;
-
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      await AsyncStorage.setItem(USER_STORAGE, JSON.stringify(user));
-      await AsyncStorage.setItem(TOKEN_STORAGE, JSON.stringify(token));
-      setUser(user);
+    try {
+      setIsSigningIn(true);
+      const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=${SCOPE}`;
+      
+      const authSessionResponse = await AuthSessions.startAsync({ authUrl }) as AuthorizationResponse;
+      
+      if(authSessionResponse.type === 'success' && authSessionResponse.params.error != 'access_denied'){
+        
+        const authResponse = await api.post('/authenticate', {code: authSessionResponse.params.code})
+        const {user, token} = authResponse.data as AuthResponse;
+        
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        
+        await AsyncStorage.setItem(USER_STORAGE, JSON.stringify(user));
+        await AsyncStorage.setItem(TOKEN_STORAGE, token);
+        setUser(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }finally {
+      setIsSigningIn(false); 
     }
-    setIsSigningIn(false);
+    };
     
-  };
-
-  async function signOut(){
-
+    async function signOut(){
+      setUser(null);
+      await AsyncStorage.removeItem(USER_STORAGE);
+      await AsyncStorage.removeItem(TOKEN_STORAGE)
   };
 
   useEffect(()=> {
