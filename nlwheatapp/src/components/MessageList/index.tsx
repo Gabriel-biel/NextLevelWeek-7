@@ -7,7 +7,9 @@ import { ScrollView } from 'react-native';
 import { styles } from './styles';
 import { Message, MessageProps } from '../Message';
 
-let messagesQueue: MessageProps[] =[];
+import { MESSAGES_EXAMPLE } from '../../utils/messages'
+
+let messagesQueue: MessageProps[] =  MESSAGES_EXAMPLE;
 
 const socket = io(String(api.defaults.baseURL));
 socket.on('new_message', (newMessage)=> {
@@ -27,7 +29,7 @@ export function MessageList(){
   useEffect(() => {
     const timer = setInterval(() => {
       if(messagesQueue.length > 0){
-        setCurrentMessages(prevState => [messagesQueue[0], prevState[0], prevState[2]]);
+        setCurrentMessages(prevState => [messagesQueue[0], prevState[0], prevState[1]]);
         messagesQueue.shift();
       }
     }, 3000);
@@ -39,8 +41,6 @@ export function MessageList(){
       style={styles.container}
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps='never'
-    >
-      {currentMessages.map((message) => <Message key={message.id} data={message}/>)}
-    </ScrollView>
+    >{currentMessages.map((message) => <Message key={message.id} data={message}/>)}</ScrollView>
   );
 }

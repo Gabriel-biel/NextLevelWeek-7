@@ -14,8 +14,8 @@ export function Home() {
   
   return (
     <KeyboardAvoidingView 
-      style={{flex: 1}} behavior={Platform.OS=='ios' ? 'padding' : undefined}
-    >
+      style={{flex: 1}} 
+      behavior={Platform.OS=='ios' ? 'padding' : undefined}>
 
       <View style={Styles.container}>
         <Header />
